@@ -45,11 +45,37 @@ public class ProductManagerTest {
         }
 
         @Test
-        void shouldManagerSearchBy() {
+        void shouldManagerSearchSmartphoneByName() {
 
             Product[] actual = manager.searchBy("Samsung");
-            ;
             Product[] expected = {smartphone1, smartphone2};
+
+            Assertions.assertArrayEquals(expected, actual);
+        }
+
+        @Test
+        void shouldManagerSearchSmartphoneByManufacturer() {
+
+            Product[] actual = manager.searchBy("Korea");
+            Product[] expected = {smartphone1, smartphone2};
+
+            Assertions.assertArrayEquals(expected, actual);
+        }
+
+        @Test
+        void shouldManagerSearchBookByName() {
+
+            Product[] actual = manager.searchBy("Lord");
+            Product[] expected = {book1};
+
+            Assertions.assertArrayEquals(expected, actual);
+        }
+
+        @Test
+        void shouldManagerSearchByBookAuthor() {
+
+            Product[] actual = manager.searchBy("Tolkien");
+            Product[] expected = {book1};
 
             Assertions.assertArrayEquals(expected, actual);
         }
@@ -82,6 +108,15 @@ public class ProductManagerTest {
             Assertions.assertThrows(AlreadyExistsException.class, () -> {
                 manager.add(book1);
             });
+        }
+
+        @Test
+        void shouldManagerSearchNotFound() {
+
+            Product[] actual = manager.searchBy("Perumov");
+            Product[] expected = {};
+
+            Assertions.assertArrayEquals(expected, actual);
         }
 
     }
